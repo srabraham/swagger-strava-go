@@ -20,7 +20,7 @@ Returns the given activity's streams. Requires activity:read scope. Requires act
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **id** | **int64**| The identifier of the activity. | 
   **keys** | [**[]string**](string.md)| Desired stream types. | 
   **keyByType** | **bool**| Must be true. | [default to true]
@@ -50,7 +50,7 @@ Returns the given route's streams. Requires read_all scope for private routes.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **id** | **int64**| The identifier of the route. | 
 
 ### Return type
@@ -78,7 +78,7 @@ Returns a set of streams for a segment effort completed by the authenticated ath
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **id** | **int64**| The identifier of the segment effort. | 
   **keys** | [**[]string**](string.md)| The types of streams to return. | 
   **keyByType** | **bool**| Must be true. | [default to true]
@@ -108,7 +108,7 @@ Returns the given segment's streams. Requires read_all scope for private segment
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **id** | **int64**| The identifier of the segment. | 
   **keys** | [**[]string**](string.md)| The types of streams to return. | 
   **keyByType** | **bool**| Must be true. | [default to true]

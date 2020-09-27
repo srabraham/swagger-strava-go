@@ -5,7 +5,7 @@ All URIs are relative to *https://www.strava.com/api/v3*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetClubActivitiesById**](ClubsApi.md#GetClubActivitiesById) | **Get** /clubs/{id}/activities | List Club Activities
-[**GetClubAdminsById**](ClubsApi.md#GetClubAdminsById) | **Get** /clubs/{id}/admins | List Club Administrators.
+[**GetClubAdminsById**](ClubsApi.md#GetClubAdminsById) | **Get** /clubs/{id}/admins | List Club Administrators
 [**GetClubById**](ClubsApi.md#GetClubById) | **Get** /clubs/{id} | Get Club
 [**GetClubMembersById**](ClubsApi.md#GetClubMembersById) | **Get** /clubs/{id}/members | List Club Members
 [**GetLoggedInAthleteClubs**](ClubsApi.md#GetLoggedInAthleteClubs) | **Get** /athlete/clubs | List Athlete Clubs
@@ -21,18 +21,18 @@ Retrieve recent activities from members of a specific club. The authenticated at
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
-  **id** | **int32**| The identifier of the club. | 
- **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **id** | **int64**| The identifier of the club. | 
+ **optional** | ***ClubsApiGetClubActivitiesByIdOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a map[string]interface{}.
+Optional parameters are passed through a pointer to a ClubsApiGetClubActivitiesByIdOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **int32**| The identifier of the club. | 
- **page** | **int32**| Page number. | 
- **perPage** | **int32**| Number of items per page. Defaults to 30. | [default to 30]
+
+ **page** | **optional.Int32**| Page number. Defaults to 1. | 
+ **perPage** | **optional.Int32**| Number of items per page. Defaults to 30. | [default to 30]
 
 ### Return type
 
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 # **GetClubAdminsById**
 > []SummaryAthlete GetClubAdminsById(ctx, id, optional)
-List Club Administrators.
+List Club Administrators
 
 Returns a list of the administrators of a given club.
 
@@ -59,18 +59,18 @@ Returns a list of the administrators of a given club.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
-  **id** | **int32**| The identifier of the club. | 
- **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **id** | **int64**| The identifier of the club. | 
+ **optional** | ***ClubsApiGetClubAdminsByIdOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a map[string]interface{}.
+Optional parameters are passed through a pointer to a ClubsApiGetClubAdminsByIdOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **int32**| The identifier of the club. | 
- **page** | **int32**| Page number. | 
- **perPage** | **int32**| Number of items per page. Defaults to 30. | [default to 30]
+
+ **page** | **optional.Int32**| Page number. Defaults to 1. | 
+ **perPage** | **optional.Int32**| Number of items per page. Defaults to 30. | [default to 30]
 
 ### Return type
 
@@ -97,8 +97,8 @@ Returns a given club using its identifier.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
-  **id** | **int32**| The identifier of the club. | 
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **id** | **int64**| The identifier of the club. | 
 
 ### Return type
 
@@ -125,18 +125,18 @@ Returns a list of the athletes who are members of a given club.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
-  **id** | **int32**| The identifier of the club. | 
- **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **id** | **int64**| The identifier of the club. | 
+ **optional** | ***ClubsApiGetClubMembersByIdOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a map[string]interface{}.
+Optional parameters are passed through a pointer to a ClubsApiGetClubMembersByIdOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **int32**| The identifier of the club. | 
- **page** | **int32**| Page number. | 
- **perPage** | **int32**| Number of items per page. Defaults to 30. | [default to 30]
+
+ **page** | **optional.Int32**| Page number. Defaults to 1. | 
+ **perPage** | **optional.Int32**| Number of items per page. Defaults to 30. | [default to 30]
 
 ### Return type
 
@@ -163,16 +163,16 @@ Returns a list of the clubs whose membership includes the authenticated athlete.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
- **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***ClubsApiGetLoggedInAthleteClubsOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a map[string]interface{}.
+Optional parameters are passed through a pointer to a ClubsApiGetLoggedInAthleteClubsOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32**| Page number. | 
- **perPage** | **int32**| Number of items per page. Defaults to 30. | [default to 30]
+ **page** | **optional.Int32**| Page number. Defaults to 1. | 
+ **perPage** | **optional.Int32**| Number of items per page. Defaults to 30. | [default to 30]
 
 ### Return type
 

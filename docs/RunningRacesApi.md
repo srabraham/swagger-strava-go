@@ -18,8 +18,8 @@ Returns a running race for a given identifier.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
-  **id** | **int32**| The identifier of the running race. | 
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **id** | **int64**| The identifier of the running race. | 
 
 ### Return type
 
@@ -46,15 +46,15 @@ Returns a list running races based on a set of search criteria.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
- **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***RunningRacesApiGetRunningRacesOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a map[string]interface{}.
+Optional parameters are passed through a pointer to a RunningRacesApiGetRunningRacesOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **year** | **int32**| Filters the list by a given year. | 
+ **year** | **optional.Int32**| Filters the list by a given year. | 
 
 ### Return type
 

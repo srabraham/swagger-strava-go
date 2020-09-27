@@ -24,27 +24,26 @@ Creates a manual activity for an athlete, requires activity:write scope.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **name** | **string**| The name of the activity. | 
   **type_** | **string**| Type of activity. For example - Run, Ride etc. | 
-  **startDateLocal** | **string**| ISO 8601 formatted date time. | 
+  **startDateLocal** | **time.Time**| ISO 8601 formatted date time. | 
   **elapsedTime** | **int32**| In seconds. | 
- **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+ **optional** | ***ActivitiesApiCreateActivityOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a map[string]interface{}.
+Optional parameters are passed through a pointer to a ActivitiesApiCreateActivityOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **name** | **string**| The name of the activity. | 
- **type_** | **string**| Type of activity. For example - Run, Ride etc. | 
- **startDateLocal** | **string**| ISO 8601 formatted date time. | 
- **elapsedTime** | **int32**| In seconds. | 
- **description** | **string**| Description of the activity. | 
- **distance** | **float32**| In meters. | 
- **trainer** | **int32**| Set to 1 to mark as a trainer activity. | 
- **photoIds** | **string**| List of native photo ids to attach to the activity. | 
- **commute** | **int32**| Set to 1 to mark as commute. | 
+
+
+
+
+ **description** | **optional.String**| Description of the activity. | 
+ **distance** | **optional.Float32**| In meters. | 
+ **trainer** | **optional.Int32**| Set to 1 to mark as a trainer activity. | 
+ **commute** | **optional.Int32**| Set to 1 to mark as commute. | 
 
 ### Return type
 
@@ -71,17 +70,17 @@ Returns the given activity that is owned by the authenticated athlete. Requires 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **id** | **int64**| The identifier of the activity. | 
- **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+ **optional** | ***ActivitiesApiGetActivityByIdOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a map[string]interface{}.
+Optional parameters are passed through a pointer to a ActivitiesApiGetActivityByIdOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **int64**| The identifier of the activity. | 
- **includeAllEfforts** | **bool**| To include all segments efforts. | 
+
+ **includeAllEfforts** | **optional.Bool**| To include all segments efforts. | 
 
 ### Return type
 
@@ -108,18 +107,18 @@ Returns the comments on the given activity. Requires activity:read for Everyone 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **id** | **int64**| The identifier of the activity. | 
- **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+ **optional** | ***ActivitiesApiGetCommentsByActivityIdOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a map[string]interface{}.
+Optional parameters are passed through a pointer to a ActivitiesApiGetCommentsByActivityIdOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **int64**| The identifier of the activity. | 
- **page** | **int32**| Page number. | 
- **perPage** | **int32**| Number of items per page. Defaults to 30. | [default to 30]
+
+ **page** | **optional.Int32**| Page number. Defaults to 1. | 
+ **perPage** | **optional.Int32**| Number of items per page. Defaults to 30. | [default to 30]
 
 ### Return type
 
@@ -146,18 +145,18 @@ Returns the athletes who kudoed an activity identified by an identifier. Require
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
-  **id** | **int32**| The identifier of the activity. | 
- **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **id** | **int64**| The identifier of the activity. | 
+ **optional** | ***ActivitiesApiGetKudoersByActivityIdOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a map[string]interface{}.
+Optional parameters are passed through a pointer to a ActivitiesApiGetKudoersByActivityIdOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **int32**| The identifier of the activity. | 
- **page** | **int32**| Page number. | 
- **perPage** | **int32**| Number of items per page. Defaults to 30. | [default to 30]
+
+ **page** | **optional.Int32**| Page number. Defaults to 1. | 
+ **perPage** | **optional.Int32**| Number of items per page. Defaults to 30. | [default to 30]
 
 ### Return type
 
@@ -184,7 +183,7 @@ Returns the laps of an activity identified by an identifier. Requires activity:r
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **id** | **int64**| The identifier of the activity. | 
 
 ### Return type
@@ -212,18 +211,18 @@ Returns the activities of an athlete for a specific identifier. Requires activit
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
- **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***ActivitiesApiGetLoggedInAthleteActivitiesOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a map[string]interface{}.
+Optional parameters are passed through a pointer to a ActivitiesApiGetLoggedInAthleteActivitiesOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **before** | **int32**| An epoch timestamp to use for filtering activities that have taken place before a certain time. | 
- **after** | **int32**| An epoch timestamp to use for filtering activities that have taken place after a certain time. | 
- **page** | **int32**| Page number. | 
- **perPage** | **int32**| Number of items per page. Defaults to 30. | [default to 30]
+ **before** | **optional.Int32**| An epoch timestamp to use for filtering activities that have taken place before a certain time. | 
+ **after** | **optional.Int32**| An epoch timestamp to use for filtering activities that have taken place after a certain time. | 
+ **page** | **optional.Int32**| Page number. Defaults to 1. | 
+ **perPage** | **optional.Int32**| Number of items per page. Defaults to 30. | [default to 30]
 
 ### Return type
 
@@ -250,8 +249,8 @@ Summit Feature. Returns the zones of a given activity. Requires activity:read fo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
-  **id** | **int32**| The identifier of the activity. | 
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **id** | **int64**| The identifier of the activity. | 
 
 ### Return type
 
@@ -278,17 +277,17 @@ Updates the given activity that is owned by the authenticated athlete. Requires 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **id** | **int64**| The identifier of the activity. | 
- **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+ **optional** | ***ActivitiesApiUpdateActivityByIdOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a map[string]interface{}.
+Optional parameters are passed through a pointer to a ActivitiesApiUpdateActivityByIdOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **int64**| The identifier of the activity. | 
- **body** | [**UpdatableActivity**](UpdatableActivity.md)|  | 
+
+ **body** | [**optional.Interface of UpdatableActivity**](UpdatableActivity.md)|  | 
 
 ### Return type
 

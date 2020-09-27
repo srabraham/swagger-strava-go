@@ -18,21 +18,21 @@ Uploads a new data file to create an activity from. Requires activity:write scop
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
- **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***UploadsApiCreateUploadOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a map[string]interface{}.
+Optional parameters are passed through a pointer to a UploadsApiCreateUploadOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | ***os.File**| The uploaded file. | 
- **name** | **string**| The desired name of the resulting activity. | 
- **description** | **string**| The desired description of the resulting activity. | 
- **trainer** | **string**| Whether the resulting activity should be marked as having been performed on a trainer. | 
- **commute** | **string**| Whether the resulting activity should be tagged as a commute. | 
- **dataType** | **string**| The format of the uploaded file. | 
- **externalId** | **string**| The desired external identifier of the resulting activity. | 
+ **file** | **optional.Interface of *os.File**| The uploaded file. | 
+ **name** | **optional.String**| The desired name of the resulting activity. | 
+ **description** | **optional.String**| The desired description of the resulting activity. | 
+ **trainer** | **optional.String**| Whether the resulting activity should be marked as having been performed on a trainer. | 
+ **commute** | **optional.String**| Whether the resulting activity should be tagged as a commute. | 
+ **dataType** | **optional.String**| The format of the uploaded file. | 
+ **externalId** | **optional.String**| The desired external identifier of the resulting activity. | 
 
 ### Return type
 
@@ -59,7 +59,7 @@ Returns an upload for a given identifier. Requires activity:write scope.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **uploadId** | **int64**| The identifier of the upload. | 
 
 ### Return type

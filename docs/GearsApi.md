@@ -17,7 +17,7 @@ Returns an equipment using its identifier.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **id** | **string**| The identifier of the gear. | 
 
 ### Return type

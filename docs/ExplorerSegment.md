@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **int64** | The unique identifier of this segment | [optional] [default to null]
 **Name** | **string** | The name of this segment | [optional] [default to null]
-**ClimbCategory** | **int32** | The category of the climb | [optional] [default to null]
+**ClimbCategory** | **int32** | The category of the climb [0, 5]. Higher is harder ie. 5 is Hors catégorie, 0 is uncategorized in climb_category. If climb_category &#x3D; 5, climb_category_desc &#x3D; HC. If climb_category &#x3D; 2, climb_category_desc &#x3D; 3. | [optional] [default to null]
 **ClimbCategoryDesc** | **string** | The description for the category of the climb | [optional] [default to null]
 **AvgGrade** | **float32** | The segment&#39;s average grade, in percents | [optional] [default to null]
 **StartLatlng** | [***LatLng**](LatLng.md) |  | [optional] [default to null]

@@ -33,6 +33,7 @@ Name | Type | Description | Notes
 **Private** | **bool** | Whether this activity is private | [optional] [default to null]
 **Flagged** | **bool** | Whether this activity is flagged | [optional] [default to null]
 **WorkoutType** | **int32** | The activity&#39;s workout type | [optional] [default to null]
+**UploadIdStr** | **string** | The unique identifier of the upload in string format | [optional] [default to null]
 **AverageSpeed** | **float32** | The activity&#39;s average speed, in meters per second | [optional] [default to null]
 **MaxSpeed** | **float32** | The activity&#39;s max speed, in meters per second | [optional] [default to null]
 **HasKudoed** | **bool** | Whether the logged-in athlete has kudoed this activity | [optional] [default to null]
