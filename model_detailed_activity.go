@@ -35,7 +35,9 @@ type DetailedActivity struct {
 	ElevHigh float32 `json:"elev_high,omitempty"`
 	// The activity's lowest elevation, in meters
 	ElevLow float32 `json:"elev_low,omitempty"`
+	// Deprecated. Prefer to use sport_type
 	Type_ *ActivityType `json:"type,omitempty"`
+	SportType *SportType `json:"sport_type,omitempty"`
 	// The time at which the activity was started.
 	StartDate time.Time `json:"start_date,omitempty"`
 	// The time at which the activity was started in the local timezone.
@@ -77,6 +79,8 @@ type DetailedActivity struct {
 	MaxSpeed float32 `json:"max_speed,omitempty"`
 	// Whether the logged-in athlete has kudoed this activity
 	HasKudoed bool `json:"has_kudoed,omitempty"`
+	// Whether the activity is muted
+	HideFromHome bool `json:"hide_from_home,omitempty"`
 	// The id of the gear for the activity
 	GearId string `json:"gear_id,omitempty"`
 	// The total work done in kilojoules during this activity. Rides only

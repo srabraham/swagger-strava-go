@@ -28,15 +28,16 @@ var (
 
 type ActivitiesApiService service
 
-/* 
+/*
 ActivitiesApiService Create an Activity
 Creates a manual activity for an athlete, requires activity:write scope.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param name The name of the activity.
- * @param type_ Type of activity. For example - Run, Ride etc.
+ * @param sportType Sport type of activity. For example - Run, MountainBikeRide, Ride, etc.
  * @param startDateLocal ISO 8601 formatted date time.
  * @param elapsedTime In seconds.
  * @param optional nil or *ActivitiesApiCreateActivityOpts - Optional Parameters:
+     * @param "Type_" (optional.String) -  Type of activity. For example - Run, Ride etc.
      * @param "Description" (optional.String) -  Description of the activity.
      * @param "Distance" (optional.Float32) -  In meters.
      * @param "Trainer" (optional.Int32) -  Set to 1 to mark as a trainer activity.
@@ -46,13 +47,14 @@ Creates a manual activity for an athlete, requires activity:write scope.
 */
 
 type ActivitiesApiCreateActivityOpts struct { 
+	Type_ optional.String
 	Description optional.String
 	Distance optional.Float32
 	Trainer optional.Int32
 	Commute optional.Int32
 }
 
-func (a *ActivitiesApiService) CreateActivity(ctx context.Context, name string, type_ string, startDateLocal time.Time, elapsedTime int32, localVarOptionals *ActivitiesApiCreateActivityOpts) (DetailedActivity, *http.Response, error) {
+func (a *ActivitiesApiService) CreateActivity(ctx context.Context, name string, sportType string, startDateLocal time.Time, elapsedTime int32, localVarOptionals *ActivitiesApiCreateActivityOpts) (DetailedActivity, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -86,7 +88,10 @@ func (a *ActivitiesApiService) CreateActivity(ctx context.Context, name string, 
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	localVarFormParams.Add("name", parameterToString(name, ""))
-	localVarFormParams.Add("type", parameterToString(type_, ""))
+	if localVarOptionals != nil && localVarOptionals.Type_.IsSet() {
+		localVarFormParams.Add("type", parameterToString(localVarOptionals.Type_.Value(), ""))
+	}
+	localVarFormParams.Add("sport_type", parameterToString(sportType, ""))
 	localVarFormParams.Add("start_date_local", parameterToString(startDateLocal, ""))
 	localVarFormParams.Add("elapsed_time", parameterToString(elapsedTime, ""))
 	if localVarOptionals != nil && localVarOptionals.Description.IsSet() {
@@ -120,9 +125,7 @@ func (a *ActivitiesApiService) CreateActivity(ctx context.Context, name string, 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -159,7 +162,7 @@ func (a *ActivitiesApiService) CreateActivity(ctx context.Context, name string, 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 ActivitiesApiService Get Activity
 Returns the given activity that is owned by the authenticated athlete. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -230,9 +233,7 @@ func (a *ActivitiesApiService) GetActivityById(ctx context.Context, id int64, lo
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -269,14 +270,16 @@ func (a *ActivitiesApiService) GetActivityById(ctx context.Context, id int64, lo
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 ActivitiesApiService List Activity Comments
 Returns the comments on the given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id The identifier of the activity.
  * @param optional nil or *ActivitiesApiGetCommentsByActivityIdOpts - Optional Parameters:
-     * @param "Page" (optional.Int32) -  Page number. Defaults to 1.
-     * @param "PerPage" (optional.Int32) -  Number of items per page. Defaults to 30.
+     * @param "Page" (optional.Int32) -  Deprecated. Prefer to use after_cursor.
+     * @param "PerPage" (optional.Int32) -  Deprecated. Prefer to use page_size.
+     * @param "PageSize" (optional.Int32) -  Number of items per page. Defaults to 30.
+     * @param "AfterCursor" (optional.String) -  Cursor of the last item in the previous page of results, used to request the subsequent page of results.  When omitted, the first page of results is fetched.
 
 @return []Comment
 */
@@ -284,6 +287,8 @@ Returns the comments on the given activity. Requires activity:read for Everyone 
 type ActivitiesApiGetCommentsByActivityIdOpts struct { 
 	Page optional.Int32
 	PerPage optional.Int32
+	PageSize optional.Int32
+	AfterCursor optional.String
 }
 
 func (a *ActivitiesApiService) GetCommentsByActivityId(ctx context.Context, id int64, localVarOptionals *ActivitiesApiGetCommentsByActivityIdOpts) ([]Comment, *http.Response, error) {
@@ -308,6 +313,12 @@ func (a *ActivitiesApiService) GetCommentsByActivityId(ctx context.Context, id i
 	}
 	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
 		localVarQueryParams.Add("per_page", parameterToString(localVarOptionals.PerPage.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.PageSize.IsSet() {
+		localVarQueryParams.Add("page_size", parameterToString(localVarOptionals.PageSize.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.AfterCursor.IsSet() {
+		localVarQueryParams.Add("after_cursor", parameterToString(localVarOptionals.AfterCursor.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -345,9 +356,7 @@ func (a *ActivitiesApiService) GetCommentsByActivityId(ctx context.Context, id i
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -384,7 +393,7 @@ func (a *ActivitiesApiService) GetCommentsByActivityId(ctx context.Context, id i
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 ActivitiesApiService List Activity Kudoers
 Returns the athletes who kudoed an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -460,9 +469,7 @@ func (a *ActivitiesApiService) GetKudoersByActivityId(ctx context.Context, id in
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -499,7 +506,7 @@ func (a *ActivitiesApiService) GetKudoersByActivityId(ctx context.Context, id in
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 ActivitiesApiService List Activity Laps
 Returns the laps of an activity identified by an identifier. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -560,9 +567,7 @@ func (a *ActivitiesApiService) GetLapsByActivityId(ctx context.Context, id int64
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -599,7 +604,7 @@ func (a *ActivitiesApiService) GetLapsByActivityId(ctx context.Context, id int64
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 ActivitiesApiService List Athlete Activities
 Returns the activities of an athlete for a specific identifier. Requires activity:read. Only Me activities will be filtered out unless requested by a token with activity:read_all.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -683,9 +688,7 @@ func (a *ActivitiesApiService) GetLoggedInAthleteActivities(ctx context.Context,
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -722,7 +725,7 @@ func (a *ActivitiesApiService) GetLoggedInAthleteActivities(ctx context.Context,
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 ActivitiesApiService Get Activity Zones
 Summit Feature. Returns the zones of a given activity. Requires activity:read for Everyone and Followers activities. Requires activity:read_all for Only Me activities.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -783,9 +786,7 @@ func (a *ActivitiesApiService) GetZonesByActivityId(ctx context.Context, id int6
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -822,7 +823,7 @@ func (a *ActivitiesApiService) GetZonesByActivityId(ctx context.Context, id int6
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 ActivitiesApiService Update Activity
 Updates the given activity that is owned by the authenticated athlete. Requires activity:write. Also requires activity:read_all in order to update Only Me activities
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -899,9 +900,7 @@ func (a *ActivitiesApiService) UpdateActivityById(ctx context.Context, id int64,
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -937,3 +936,4 @@ func (a *ActivitiesApiService) UpdateActivityById(ctx context.Context, id int64,
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+

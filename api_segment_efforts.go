@@ -27,7 +27,7 @@ var (
 
 type SegmentEffortsApiService service
 
-/* 
+/*
 SegmentEffortsApiService List Segment Efforts
 Returns a set of the authenticated athlete&#39;s segment efforts for a given segment.  Requires subscription.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -108,9 +108,7 @@ func (a *SegmentEffortsApiService) GetEffortsBySegmentId(ctx context.Context, se
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -147,7 +145,7 @@ func (a *SegmentEffortsApiService) GetEffortsBySegmentId(ctx context.Context, se
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 SegmentEffortsApiService Get Segment Effort
 Returns a segment effort from an activity that is owned by the authenticated athlete. Requires subscription.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -208,9 +206,7 @@ func (a *SegmentEffortsApiService) GetSegmentEffortById(ctx context.Context, id 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -246,3 +242,4 @@ func (a *SegmentEffortsApiService) GetSegmentEffortById(ctx context.Context, id 
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+

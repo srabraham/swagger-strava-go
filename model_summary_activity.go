@@ -19,8 +19,8 @@ type SummaryActivity struct {
 	// The identifier provided at upload time
 	ExternalId string `json:"external_id,omitempty"`
 	// The identifier of the upload that resulted in this activity
-	UploadId int64        `json:"upload_id,omitempty"`
-	Athlete  *MetaAthlete `json:"athlete,omitempty"`
+	UploadId int64 `json:"upload_id,omitempty"`
+	Athlete *MetaAthlete `json:"athlete,omitempty"`
 	// The name of the activity
 	Name string `json:"name,omitempty"`
 	// The activity's distance, in meters
@@ -34,16 +34,18 @@ type SummaryActivity struct {
 	// The activity's highest elevation, in meters
 	ElevHigh float32 `json:"elev_high,omitempty"`
 	// The activity's lowest elevation, in meters
-	ElevLow float32       `json:"elev_low,omitempty"`
-	Type_   *ActivityType `json:"type,omitempty"`
+	ElevLow float32 `json:"elev_low,omitempty"`
+	// Deprecated. Prefer to use sport_type
+	Type_ *ActivityType `json:"type,omitempty"`
+	SportType *SportType `json:"sport_type,omitempty"`
 	// The time at which the activity was started.
 	StartDate time.Time `json:"start_date,omitempty"`
 	// The time at which the activity was started in the local timezone.
 	StartDateLocal time.Time `json:"start_date_local,omitempty"`
 	// The timezone of the activity
-	Timezone    string  `json:"timezone,omitempty"`
+	Timezone string `json:"timezone,omitempty"`
 	StartLatlng *LatLng `json:"start_latlng,omitempty"`
-	EndLatlng   *LatLng `json:"end_latlng,omitempty"`
+	EndLatlng *LatLng `json:"end_latlng,omitempty"`
 	// The number of achievements gained during this activity
 	AchievementCount int32 `json:"achievement_count,omitempty"`
 	// The number of kudos given for this activity
@@ -55,8 +57,8 @@ type SummaryActivity struct {
 	// The number of Instagram photos for this activity
 	PhotoCount int32 `json:"photo_count,omitempty"`
 	// The number of Instagram and Strava photos for this activity
-	TotalPhotoCount int32        `json:"total_photo_count,omitempty"`
-	Map_            *PolylineMap `json:"map,omitempty"`
+	TotalPhotoCount int32 `json:"total_photo_count,omitempty"`
+	Map_ *PolylineMap `json:"map,omitempty"`
 	// Whether this activity was recorded on a training machine
 	Trainer bool `json:"trainer,omitempty"`
 	// Whether this activity is a commute
@@ -77,6 +79,8 @@ type SummaryActivity struct {
 	MaxSpeed float32 `json:"max_speed,omitempty"`
 	// Whether the logged-in athlete has kudoed this activity
 	HasKudoed bool `json:"has_kudoed,omitempty"`
+	// Whether the activity is muted
+	HideFromHome bool `json:"hide_from_home,omitempty"`
 	// The id of the gear for the activity
 	GearId string `json:"gear_id,omitempty"`
 	// The total work done in kilojoules during this activity. Rides only
@@ -89,23 +93,4 @@ type SummaryActivity struct {
 	MaxWatts int32 `json:"max_watts,omitempty"`
 	// Similar to Normalized Power. Rides with power meter data only
 	WeightedAverageWatts int32 `json:"weighted_average_watts,omitempty"`
-
-	LocationCity               interface{} `json:"location_city"`
-	LocationState              interface{} `json:"location_state"`
-	LocationCountry            string      `json:"location_country"`
-	StartLatitude              float64     `json:"start_latitude"`
-	StartLongitude             float64     `json:"start_longitude"`
-	Visibility                 string      `json:"visibility"`
-	GearID                     string      `json:"gear_id"`
-	FromAcceptedTag            bool        `json:"from_accepted_tag"`
-	UploadIDStr                string      `json:"upload_id_str"`
-	AverageCadence             float64     `json:"average_cadence"`
-	AverageTemp                int         `json:"average_temp"`
-	HasHeartrate               bool        `json:"has_heartrate"`
-	AverageHeartrate           float64     `json:"average_heartrate"`
-	MaxHeartrate               float64     `json:"max_heartrate"`
-	HeartrateOptOut            bool        `json:"heartrate_opt_out"`
-	DisplayHideHeartrateOption bool        `json:"display_hide_heartrate_option"`
-	PrCount                    int         `json:"pr_count"`
-	SufferScore                float64     `json:"suffer_score"`
 }

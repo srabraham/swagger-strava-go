@@ -55,8 +55,6 @@ type APIClient struct {
 
 	RoutesApi *RoutesApiService
 
-	RunningRacesApi *RunningRacesApiService
-
 	SegmentEffortsApi *SegmentEffortsApiService
 
 	SegmentsApi *SegmentsApiService
@@ -87,7 +85,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ClubsApi = (*ClubsApiService)(&c.common)
 	c.GearsApi = (*GearsApiService)(&c.common)
 	c.RoutesApi = (*RoutesApiService)(&c.common)
-	c.RunningRacesApi = (*RunningRacesApiService)(&c.common)
 	c.SegmentEffortsApi = (*SegmentEffortsApiService)(&c.common)
 	c.SegmentsApi = (*SegmentsApiService)(&c.common)
 	c.StreamsApi = (*StreamsApiService)(&c.common)

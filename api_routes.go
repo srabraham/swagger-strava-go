@@ -27,7 +27,7 @@ var (
 
 type RoutesApiService service
 
-/* 
+/*
 RoutesApiService Export Route GPX
 Returns a GPX file of the route. Requires read_all scope for private routes.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -109,7 +109,7 @@ func (a *RoutesApiService) GetRouteAsGPX(ctx context.Context, id int64) (*http.R
 	return localVarHttpResponse, nil
 }
 
-/* 
+/*
 RoutesApiService Export Route TCX
 Returns a TCX file of the route. Requires read_all scope for private routes.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -191,7 +191,7 @@ func (a *RoutesApiService) GetRouteAsTCX(ctx context.Context, id int64) (*http.R
 	return localVarHttpResponse, nil
 }
 
-/* 
+/*
 RoutesApiService Get Route
 Returns a route using its identifier. Requires read_all scope for private routes.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -252,9 +252,7 @@ func (a *RoutesApiService) GetRouteById(ctx context.Context, id int64) (Route, *
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -291,7 +289,7 @@ func (a *RoutesApiService) GetRouteById(ctx context.Context, id int64) (Route, *
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 RoutesApiService List Athlete Routes
 Returns a list of the routes created by the authenticated athlete. Private routes are filtered out unless requested by a token with read_all scope.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -365,9 +363,7 @@ func (a *RoutesApiService) GetRoutesByAthleteId(ctx context.Context, localVarOpt
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -403,3 +399,4 @@ func (a *RoutesApiService) GetRoutesByAthleteId(ctx context.Context, localVarOpt
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+

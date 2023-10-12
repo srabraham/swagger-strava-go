@@ -26,7 +26,7 @@ var (
 
 type StreamsApiService service
 
-/* 
+/*
 StreamsApiService Get Activity Streams
 Returns the given activity&#39;s streams. Requires activity:read scope. Requires activity:read_all scope for Only Me activities.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -94,9 +94,7 @@ func (a *StreamsApiService) GetActivityStreams(ctx context.Context, id int64, ke
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -133,7 +131,7 @@ func (a *StreamsApiService) GetActivityStreams(ctx context.Context, id int64, ke
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 StreamsApiService Get Route Streams
 Returns the given route&#39;s streams. Requires read_all scope for private routes.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -194,9 +192,7 @@ func (a *StreamsApiService) GetRouteStreams(ctx context.Context, id int64) (Stre
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -233,7 +229,7 @@ func (a *StreamsApiService) GetRouteStreams(ctx context.Context, id int64) (Stre
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 StreamsApiService Get Segment Effort Streams
 Returns a set of streams for a segment effort completed by the authenticated athlete. Requires read_all scope.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -301,9 +297,7 @@ func (a *StreamsApiService) GetSegmentEffortStreams(ctx context.Context, id int6
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -340,7 +334,7 @@ func (a *StreamsApiService) GetSegmentEffortStreams(ctx context.Context, id int6
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 StreamsApiService Get Segment Streams
 Returns the given segment&#39;s streams. Requires read_all scope for private segments.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -408,9 +402,7 @@ func (a *StreamsApiService) GetSegmentStreams(ctx context.Context, id int64, key
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -446,3 +438,4 @@ func (a *StreamsApiService) GetSegmentStreams(ctx context.Context, id int64, key
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+

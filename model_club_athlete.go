@@ -9,20 +9,17 @@
 
 package swagger
 
-type UpdatableActivity struct {
-	// Whether this activity is a commute
-	Commute bool `json:"commute,omitempty"`
-	// Whether this activity was recorded on a training machine
-	Trainer bool `json:"trainer,omitempty"`
-	// Whether this activity is muted
-	HideFromHome bool `json:"hide_from_home,omitempty"`
-	// The description of the activity
-	Description string `json:"description,omitempty"`
-	// The name of the activity
-	Name string `json:"name,omitempty"`
-	// Deprecated. Prefer to use sport_type. In a request where both type and sport_type are present, this field will be ignored
-	Type_ *ActivityType `json:"type,omitempty"`
-	SportType *SportType `json:"sport_type,omitempty"`
-	// Identifier for the gear associated with the activity. ‘none’ clears gear from activity
-	GearId string `json:"gear_id,omitempty"`
+type ClubAthlete struct {
+	// Resource state, indicates level of detail. Possible values: 1 -> \"meta\", 2 -> \"summary\", 3 -> \"detail\"
+	ResourceState int32 `json:"resource_state,omitempty"`
+	// The athlete's first name.
+	Firstname string `json:"firstname,omitempty"`
+	// The athlete's last initial.
+	Lastname string `json:"lastname,omitempty"`
+	// The athlete's member status.
+	Member string `json:"member,omitempty"`
+	// Whether the athlete is a club admin.
+	Admin bool `json:"admin,omitempty"`
+	// Whether the athlete is club owner.
+	Owner bool `json:"owner,omitempty"`
 }

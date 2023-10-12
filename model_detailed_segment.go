@@ -41,8 +41,8 @@ type DetailedSegment struct {
 	Country string `json:"country,omitempty"`
 	// Whether this segment is private.
 	Private bool `json:"private,omitempty"`
-	AthletePrEffort *SummarySegmentEffort `json:"athlete_pr_effort,omitempty"`
-	AthleteSegmentStats *SummaryPrSegmentEffort `json:"athlete_segment_stats,omitempty"`
+	AthletePrEffort *SummaryPrSegmentEffort `json:"athlete_pr_effort,omitempty"`
+	AthleteSegmentStats *SummarySegmentEffort `json:"athlete_segment_stats,omitempty"`
 	// The time at which the segment was created.
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// The time at which the segment was last updated.

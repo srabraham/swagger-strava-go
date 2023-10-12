@@ -43,8 +43,6 @@ Class | Method | HTTP request | Description
 *RoutesApi* | [**GetRouteAsTCX**](docs/RoutesApi.md#getrouteastcx) | **Get** /routes/{id}/export_tcx | Export Route TCX
 *RoutesApi* | [**GetRouteById**](docs/RoutesApi.md#getroutebyid) | **Get** /routes/{id} | Get Route
 *RoutesApi* | [**GetRoutesByAthleteId**](docs/RoutesApi.md#getroutesbyathleteid) | **Get** /athletes/{id}/routes | List Athlete Routes
-*RunningRacesApi* | [**GetRunningRaceById**](docs/RunningRacesApi.md#getrunningracebyid) | **Get** /running_races/{id} | Get Running Race
-*RunningRacesApi* | [**GetRunningRaces**](docs/RunningRacesApi.md#getrunningraces) | **Get** /running_races | List Running Races
 *SegmentEffortsApi* | [**GetEffortsBySegmentId**](docs/SegmentEffortsApi.md#geteffortsbysegmentid) | **Get** /segment_efforts | List Segment Efforts
 *SegmentEffortsApi* | [**GetSegmentEffortById**](docs/SegmentEffortsApi.md#getsegmenteffortbyid) | **Get** /segment_efforts/{id} | Get Segment Effort
 *SegmentsApi* | [**ExploreSegments**](docs/SegmentsApi.md#exploresegments) | **Get** /segments/explore | Explore segments
@@ -68,6 +66,8 @@ Class | Method | HTTP request | Description
  - [AltitudeStream](docs/AltitudeStream.md)
  - [BaseStream](docs/BaseStream.md)
  - [CadenceStream](docs/CadenceStream.md)
+ - [ClubActivity](docs/ClubActivity.md)
+ - [ClubAthlete](docs/ClubAthlete.md)
  - [Comment](docs/Comment.md)
  - [DetailedActivity](docs/DetailedActivity.md)
  - [DetailedAthlete](docs/DetailedAthlete.md)
@@ -95,10 +95,10 @@ Class | Method | HTTP request | Description
  - [PowerStream](docs/PowerStream.md)
  - [PowerZoneRanges](docs/PowerZoneRanges.md)
  - [Route](docs/Route.md)
- - [RunningRace](docs/RunningRace.md)
  - [SmoothGradeStream](docs/SmoothGradeStream.md)
  - [SmoothVelocityStream](docs/SmoothVelocityStream.md)
  - [Split](docs/Split.md)
+ - [SportType](docs/SportType.md)
  - [StreamSet](docs/StreamSet.md)
  - [SummaryActivity](docs/SummaryActivity.md)
  - [SummaryAthlete](docs/SummaryAthlete.md)

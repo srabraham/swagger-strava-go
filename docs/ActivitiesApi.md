@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **CreateActivity**
-> DetailedActivity CreateActivity(ctx, name, type_, startDateLocal, elapsedTime, optional)
+> DetailedActivity CreateActivity(ctx, name, sportType, startDateLocal, elapsedTime, optional)
 Create an Activity
 
 Creates a manual activity for an athlete, requires activity:write scope.
@@ -26,7 +26,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **name** | **string**| The name of the activity. | 
-  **type_** | **string**| Type of activity. For example - Run, Ride etc. | 
+  **sportType** | **string**| Sport type of activity. For example - Run, MountainBikeRide, Ride, etc. | 
   **startDateLocal** | **time.Time**| ISO 8601 formatted date time. | 
   **elapsedTime** | **int32**| In seconds. | 
  **optional** | ***ActivitiesApiCreateActivityOpts** | optional parameters | nil if no parameters
@@ -40,6 +40,7 @@ Name | Type | Description  | Notes
 
 
 
+ **type_** | **optional.String**| Type of activity. For example - Run, Ride etc. | 
  **description** | **optional.String**| Description of the activity. | 
  **distance** | **optional.Float32**| In meters. | 
  **trainer** | **optional.Int32**| Set to 1 to mark as a trainer activity. | 
@@ -117,8 +118,10 @@ Optional parameters are passed through a pointer to a ActivitiesApiGetCommentsBy
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **page** | **optional.Int32**| Page number. Defaults to 1. | 
- **perPage** | **optional.Int32**| Number of items per page. Defaults to 30. | [default to 30]
+ **page** | **optional.Int32**| Deprecated. Prefer to use after_cursor. | 
+ **perPage** | **optional.Int32**| Deprecated. Prefer to use page_size. | [default to 30]
+ **pageSize** | **optional.Int32**| Number of items per page. Defaults to 30. | [default to 30]
+ **afterCursor** | **optional.String**| Cursor of the last item in the previous page of results, used to request the subsequent page of results.  When omitted, the first page of results is fetched. | 
 
 ### Return type
 

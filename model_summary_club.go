@@ -22,7 +22,10 @@ type SummaryClub struct {
 	CoverPhoto string `json:"cover_photo,omitempty"`
 	// URL to a ~360x176  pixel cover photo.
 	CoverPhotoSmall string `json:"cover_photo_small,omitempty"`
+	// Deprecated. Prefer to use activity_types.
 	SportType string `json:"sport_type,omitempty"`
+	// The activity types that count for a club. This takes precedence over sport_type.
+	ActivityTypes []ActivityType `json:"activity_types,omitempty"`
 	// The club's city.
 	City string `json:"city,omitempty"`
 	// The club's state or geographical region.

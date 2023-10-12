@@ -28,7 +28,7 @@ var (
 
 type UploadsApiService service
 
-/* 
+/*
 UploadsApiService Upload Activity
 Uploads a new data file to create an activity from. Requires activity:write scope.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -138,9 +138,7 @@ func (a *UploadsApiService) CreateUpload(ctx context.Context, localVarOptionals 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -177,7 +175,7 @@ func (a *UploadsApiService) CreateUpload(ctx context.Context, localVarOptionals 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 UploadsApiService Get Upload
 Returns an upload for a given identifier. Requires activity:write scope.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -238,9 +236,7 @@ func (a *UploadsApiService) GetUploadById(ctx context.Context, uploadId int64) (
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -276,3 +272,4 @@ func (a *UploadsApiService) GetUploadById(ctx context.Context, uploadId int64) (
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+

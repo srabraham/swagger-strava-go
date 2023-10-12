@@ -26,7 +26,7 @@ var (
 
 type AthletesApiService service
 
-/* 
+/*
 AthletesApiService Get Authenticated Athlete
 Returns the currently authenticated athlete. Tokens with profile:read_all scope will receive a detailed athlete representation; all others will receive a summary representation.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -85,9 +85,7 @@ func (a *AthletesApiService) GetLoggedInAthlete(ctx context.Context) (DetailedAt
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -124,7 +122,7 @@ func (a *AthletesApiService) GetLoggedInAthlete(ctx context.Context) (DetailedAt
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 AthletesApiService Get Zones
 Returns the the authenticated athlete&#39;s heart rate and power zones. Requires profile:read_all.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -183,9 +181,7 @@ func (a *AthletesApiService) GetLoggedInAthleteZones(ctx context.Context) (Zones
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -222,7 +218,7 @@ func (a *AthletesApiService) GetLoggedInAthleteZones(ctx context.Context) (Zones
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 AthletesApiService Get Athlete Stats
 Returns the activity stats of an athlete. Only includes data from activities set to Everyone visibilty.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -283,9 +279,7 @@ func (a *AthletesApiService) GetStats(ctx context.Context, id int64) (ActivitySt
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -322,7 +316,7 @@ func (a *AthletesApiService) GetStats(ctx context.Context, id int64) (ActivitySt
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-/* 
+/*
 AthletesApiService Update Athlete
 Update the currently authenticated athlete. Requires profile:write scope.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -383,9 +377,7 @@ func (a *AthletesApiService) UpdateLoggedInAthlete(ctx context.Context, weight f
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
 		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
+		return localVarReturnValue, localVarHttpResponse, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -421,3 +413,4 @@ func (a *AthletesApiService) UpdateLoggedInAthlete(ctx context.Context, weight f
 
 	return localVarReturnValue, localVarHttpResponse, nil
 }
+

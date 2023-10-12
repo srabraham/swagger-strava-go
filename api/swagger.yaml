@@ -682,56 +682,6 @@ paths:
           description: "Unexpected error."
           schema:
             $ref: "#/definitions/Fault"
-  /running_races/{id}:
-    get:
-      tags:
-      - "RunningRaces"
-      summary: "Get Running Race"
-      description: "Returns a running race for a given identifier."
-      operationId: "getRunningRaceById"
-      parameters:
-      - name: "id"
-        in: "path"
-        description: "The identifier of the running race."
-        required: true
-        type: "integer"
-        format: "int64"
-        x-exportParamName: "Id"
-      responses:
-        "200":
-          description: "Representation of a running race."
-          schema:
-            $ref: "#/definitions/RunningRace"
-        default:
-          description: "Unexpected error."
-          schema:
-            $ref: "#/definitions/Fault"
-  /running_races:
-    get:
-      tags:
-      - "RunningRaces"
-      summary: "List Running Races"
-      description: "Returns a list running races based on a set of search criteria."
-      operationId: "getRunningRaces"
-      parameters:
-      - name: "year"
-        in: "query"
-        description: "Filters the list by a given year."
-        required: false
-        type: "integer"
-        x-exportParamName: "Year"
-        x-optionalDataType: "Int32"
-      responses:
-        "200":
-          description: "Representation of a list of running race."
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/RunningRace"
-        default:
-          description: "Unexpected error."
-          schema:
-            $ref: "#/definitions/Fault"
   /activities:
     post:
       tags:
@@ -750,9 +700,17 @@ paths:
       - name: "type"
         in: "formData"
         description: "Type of activity. For example - Run, Ride etc."
-        required: true
+        required: false
         type: "string"
         x-exportParamName: "Type_"
+        x-optionalDataType: "String"
+      - name: "sport_type"
+        in: "formData"
+        description: "Sport type of activity. For example - Run, MountainBikeRide,\
+          \ Ride, etc."
+        required: true
+        type: "string"
+        x-exportParamName: "SportType"
       - name: "start_date_local"
         in: "formData"
         description: "ISO 8601 formatted date time."
@@ -811,6 +769,7 @@ paths:
               elapsed_time: 18373
               total_elevation_gain: 0
               type: "Ride"
+              sport_type: "MountainBikeRide"
               start_date: "2018-02-20T18:02:13Z"
               start_date_local: "2018-02-20T10:02:13Z"
               timezone: "(GMT-08:00) America/Los_Angeles"
@@ -886,6 +845,7 @@ paths:
               elapsed_time: 4410
               total_elevation_gain: 516
               type: "Ride"
+              sport_type: "MountainBikeRide"
               start_date: "2018-02-16T14:52:54Z"
               start_date_local: "2018-02-16T06:52:54Z"
               timezone: "(GMT-08:00) America/Los_Angeles"
@@ -1042,6 +1002,7 @@ paths:
                 display_name: "Marianne V."
                 avatar_url: "https://dgalywyr863hv.cloudfront.net/pictures/athletes/12345678987654321/12345678987654321/3/medium.jpg"
                 show_name: true
+              hide_from_home: false
               device_name: "Garmin Edge 1030"
               embed_token: "18e4615989b47dd4ff3dc711b0aa4502e4b311a9"
               segment_leaderboard_opt_out: false
@@ -1092,6 +1053,7 @@ paths:
               elapsed_time: 4410
               total_elevation_gain: 516
               type: "Ride"
+              sport_type: "MountainBikeRide"
               start_date: "2018-02-16T14:52:54Z"
               start_date_local: "2018-02-16T06:52:54Z"
               timezone: "(GMT-08:00) America/Los_Angeles"
@@ -1249,6 +1211,7 @@ paths:
                 display_name: "Marianne V."
                 avatar_url: "https://dgalywyr863hv.cloudfront.net/pictures/athletes/12345678987654321/12345678987654321/3/medium.jpg"
                 show_name: true
+              hide_from_home: false
               device_name: "Garmin Edge 1030"
               embed_token: "18e4615989b47dd4ff3dc711b0aa4502e4b311a9"
               segment_leaderboard_opt_out: false
@@ -1315,6 +1278,7 @@ paths:
               elapsed_time: 4500
               total_elevation_gain: 0
               type: "Ride"
+              sport_type: "MountainBikeRide"
               id: 154504250376823
               external_id: "garmin_push_12345678987654321"
               upload_id: 987654321234567891234
@@ -1363,6 +1327,7 @@ paths:
               elapsed_time: 5400
               total_elevation_gain: 0
               type: "Ride"
+              sport_type: "MountainBikeRide"
               id: 1234567809
               external_id: "garmin_push_12345678987654321"
               upload_id: 1234567819
@@ -1510,19 +1475,36 @@ paths:
         x-exportParamName: "Id"
       - name: "page"
         in: "query"
-        description: "Page number. Defaults to 1."
+        description: "Deprecated. Prefer to use after_cursor."
         required: false
         type: "integer"
         x-exportParamName: "Page"
         x-optionalDataType: "Int32"
       - name: "per_page"
         in: "query"
-        description: "Number of items per page. Defaults to 30."
+        description: "Deprecated. Prefer to use page_size."
         required: false
         type: "integer"
         default: 30
         x-exportParamName: "PerPage"
         x-optionalDataType: "Int32"
+      - name: "page_size"
+        in: "query"
+        description: "Number of items per page. Defaults to 30."
+        required: false
+        type: "integer"
+        default: 30
+        x-exportParamName: "PageSize"
+        x-optionalDataType: "Int32"
+      - name: "after_cursor"
+        in: "query"
+        description: "Cursor of the last item in the previous page of results, used\
+          \ to request the subsequent page of results.  When omitted, the first page\
+          \ of results is fetched."
+        required: false
+        type: "string"
+        x-exportParamName: "AfterCursor"
+        x-optionalDataType: "String"
       responses:
         "200":
           description: "Comments."
@@ -1536,6 +1518,7 @@ paths:
               athlete:
                 firstname: "Peter"
                 lastname: "S"
+              cursor: "abc123%20"
           schema:
             type: "array"
             items:
@@ -1619,6 +1602,12 @@ paths:
               cover_photo: "https://dgalywyr863hv.cloudfront.net/pictures/clubs/1/4328276/1/large.jpg"
               cover_photo_small: "https://dgalywyr863hv.cloudfront.net/pictures/clubs/1/4328276/1/small.jpg"
               sport_type: "cycling"
+              activity_types:
+              - "Ride"
+              - "VirtualRide"
+              - "EBikeRide"
+              - "Velomobile"
+              - "Handcycle"
               city: "San Francisco"
               state: "California"
               country: "United States"
@@ -1673,7 +1662,7 @@ paths:
         x-optionalDataType: "Int32"
       responses:
         "200":
-          description: "A list of summary athlete representations."
+          description: "A list of club athlete representations."
           examples:
             application/json:
             - resource_state: 2
@@ -1685,7 +1674,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/SummaryAthlete"
+              $ref: "#/definitions/ClubAthlete"
         default:
           description: "Unexpected error."
           schema:
@@ -1785,10 +1774,11 @@ paths:
               elapsed_time: 635
               total_elevation_gain: 8.8
               type: "Ride"
+              sport_type: "MountainBikeRide"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/SummaryActivity"
+              $ref: "#/definitions/ClubActivity"
         default:
           description: "Unexpected error."
           schema:
@@ -2641,11 +2631,18 @@ definitions:
           description: "URL to a ~360x176  pixel cover photo."
         sport_type:
           type: "string"
+          description: "Deprecated. Prefer to use activity_types."
           enum:
           - "cycling"
           - "running"
           - "triathlon"
           - "other"
+        activity_types:
+          type: "array"
+          description: "The activity types that count for a club. This takes precedence\
+            \ over sport_type."
+          items:
+            $ref: "#/definitions/ActivityType"
         city:
           type: "string"
           description: "The club's city."
@@ -2684,6 +2681,50 @@ definitions:
       name:
         type: "string"
         description: "The club's name."
+  ActivityType:
+    type: "string"
+    description: "An enumeration of the types an activity may have. Note that this\
+      \ enumeration does not include new sport types (e.g. MountainBikeRide, EMountainBikeRide),\
+      \ activities with these sport types will have the corresponding activity type\
+      \ (e.g. Ride for MountainBikeRide, EBikeRide for EMountainBikeRide)"
+    enum:
+    - "AlpineSki"
+    - "BackcountrySki"
+    - "Canoeing"
+    - "Crossfit"
+    - "EBikeRide"
+    - "Elliptical"
+    - "Golf"
+    - "Handcycle"
+    - "Hike"
+    - "IceSkate"
+    - "InlineSkate"
+    - "Kayaking"
+    - "Kitesurf"
+    - "NordicSki"
+    - "Ride"
+    - "RockClimbing"
+    - "RollerSki"
+    - "Rowing"
+    - "Run"
+    - "Sail"
+    - "Skateboard"
+    - "Snowboard"
+    - "Snowshoe"
+    - "Soccer"
+    - "StairStepper"
+    - "StandUpPaddling"
+    - "Surfing"
+    - "Swim"
+    - "Velomobile"
+    - "VirtualRide"
+    - "VirtualRun"
+    - "Walk"
+    - "WeightTraining"
+    - "Wheelchair"
+    - "Windsurf"
+    - "Workout"
+    - "Yoga"
   SummaryGear:
     type: "object"
     properties:
@@ -2824,9 +2865,9 @@ definitions:
         type: "boolean"
         description: "Whether this segment is private."
       athlete_pr_effort:
-        $ref: "#/definitions/SummarySegmentEffort"
-      athlete_segment_stats:
         $ref: "#/definitions/SummaryPRSegmentEffort"
+      athlete_segment_stats:
+        $ref: "#/definitions/SummarySegmentEffort"
     example:
       country: "country"
       private: true
@@ -2837,18 +2878,18 @@ definitions:
       city: "city"
       elevation_high: 7.386282
       athlete_pr_effort:
-        distance: 1.1730742
+        pr_elapsed_time: 6
+        pr_date: "2000-01-23T04:56:07.000+00:00"
+        effort_count: 7
+        pr_activity_id: 1
+      athlete_segment_stats:
+        distance: 9.965781
         start_date_local: "2000-01-23T04:56:07.000+00:00"
-        activity_id: 6
-        elapsed_time: 7
+        activity_id: 4
+        elapsed_time: 5
         is_kom: true
         id: 1
         start_date: "2000-01-23T04:56:07.000+00:00"
-      athlete_segment_stats:
-        pr_elapsed_time: 5
-        pr_date: "2000-01-23T04:56:07.000+00:00"
-        effort_count: 9
-        pr_activity_id: 4
       start_latlng: ""
       elevation_low: 1.2315135
       end_latlng: ""
@@ -2865,6 +2906,28 @@ definitions:
       format: "float"
     minItems: 2
     maxItems: 2
+  SummaryPRSegmentEffort:
+    type: "object"
+    properties:
+      pr_activity_id:
+        type: "integer"
+        format: "int64"
+        description: "The unique identifier of the activity related to the PR effort."
+      pr_elapsed_time:
+        type: "integer"
+        description: "The elapsed time ot the PR effort."
+      pr_date:
+        type: "string"
+        format: "date-time"
+        description: "The time at which the PR effort was started."
+      effort_count:
+        type: "integer"
+        description: "Number of efforts by the authenticated athlete on this segment."
+    example:
+      pr_elapsed_time: 6
+      pr_date: "2000-01-23T04:56:07.000+00:00"
+      effort_count: 7
+      pr_activity_id: 1
   SummarySegmentEffort:
     type: "object"
     properties:
@@ -2895,35 +2958,13 @@ definitions:
         type: "boolean"
         description: "Whether this effort is the current best on the leaderboard"
     example:
-      distance: 1.1730742
+      distance: 9.965781
       start_date_local: "2000-01-23T04:56:07.000+00:00"
-      activity_id: 6
-      elapsed_time: 7
+      activity_id: 4
+      elapsed_time: 5
       is_kom: true
       id: 1
       start_date: "2000-01-23T04:56:07.000+00:00"
-  SummaryPRSegmentEffort:
-    type: "object"
-    properties:
-      pr_activity_id:
-        type: "integer"
-        format: "int64"
-        description: "The unique identifier of the activity related to the PR effort."
-      pr_elapsed_time:
-        type: "integer"
-        description: "The elapsed time ot the PR effort."
-      pr_date:
-        type: "string"
-        format: "date-time"
-        description: "The time at which the PR effort was started."
-      effort_count:
-        type: "integer"
-        description: "Number of efforts by the authenticated athlete on this segment."
-    example:
-      pr_elapsed_time: 5
-      pr_date: "2000-01-23T04:56:07.000+00:00"
-      effort_count: 9
-      pr_activity_id: 4
   PolylineMap:
     type: "object"
     properties:
@@ -3061,70 +3102,6 @@ definitions:
       points:
         type: "string"
         description: "The polyline of the segment"
-  RunningRace:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-        description: "The unique identifier of this race."
-      name:
-        type: "string"
-        description: "The name of this race."
-      running_race_type:
-        type: "integer"
-        description: "The type of this race."
-      distance:
-        type: "number"
-        format: "float"
-        description: "The race's distance, in meters."
-      start_date_local:
-        type: "string"
-        format: "date-time"
-        description: "The time at which the race begins started in the local timezone."
-      city:
-        type: "string"
-        description: "The name of the city in which the race is taking place."
-      state:
-        type: "string"
-        description: "The name of the state or geographical region in which the race\
-          \ is taking place."
-      country:
-        type: "string"
-        description: "The name of the country in which the race is taking place."
-      route_ids:
-        type: "array"
-        description: "The set of routes that cover this race's course."
-        items:
-          type: "integer"
-          format: "int64"
-      measurement_preference:
-        type: "string"
-        description: "The unit system in which the race should be displayed."
-        enum:
-        - "feet"
-        - "meters"
-      url:
-        type: "string"
-        description: "The vanity URL of this race on Strava."
-      website_url:
-        type: "string"
-        description: "The URL of this race's website."
-    example:
-      country: "country"
-      route_ids:
-      - 5
-      - 5
-      running_race_type: 6
-      distance: 1.4658129
-      website_url: "website_url"
-      city: "city"
-      start_date_local: "2000-01-23T04:56:07.000+00:00"
-      name: "name"
-      measurement_preference: "feet"
-      id: 0
-      state: "state"
-      url: "url"
   DetailedActivity:
     allOf:
     - $ref: "#/definitions/SummaryActivity"
@@ -3207,7 +3184,10 @@ definitions:
           format: "float"
           description: "The activity's lowest elevation, in meters"
         type:
+          description: "Deprecated. Prefer to use sport_type"
           $ref: "#/definitions/ActivityType"
+        sport_type:
+          $ref: "#/definitions/SportType"
         start_date:
           type: "string"
           format: "date-time"
@@ -3276,6 +3256,9 @@ definitions:
         has_kudoed:
           type: "boolean"
           description: "Whether the logged-in athlete has kudoed this activity"
+        hide_from_home:
+          type: "boolean"
+          description: "Whether the activity is muted"
         gear_id:
           type: "string"
           description: "The id of the gear for the activity"
@@ -3298,24 +3281,33 @@ definitions:
         weighted_average_watts:
           type: "integer"
           description: "Similar to Normalized Power. Rides with power meter data only"
-  ActivityType:
+  SportType:
     type: "string"
-    description: "An enumeration of the types an activity may have."
+    description: "An enumeration of the sport types an activity may have. Distinct\
+      \ from ActivityType in that it has new types (e.g. MountainBikeRide)"
     enum:
     - "AlpineSki"
     - "BackcountrySki"
+    - "Badminton"
     - "Canoeing"
     - "Crossfit"
     - "EBikeRide"
     - "Elliptical"
+    - "EMountainBikeRide"
     - "Golf"
+    - "GravelRide"
     - "Handcycle"
+    - "HighIntensityIntervalTraining"
     - "Hike"
     - "IceSkate"
     - "InlineSkate"
     - "Kayaking"
     - "Kitesurf"
+    - "MountainBikeRide"
     - "NordicSki"
+    - "Pickleball"
+    - "Pilates"
+    - "Racquetball"
     - "Ride"
     - "RockClimbing"
     - "RollerSki"
@@ -3326,12 +3318,17 @@ definitions:
     - "Snowboard"
     - "Snowshoe"
     - "Soccer"
+    - "Squash"
     - "StairStepper"
     - "StandUpPaddling"
     - "Surfing"
     - "Swim"
+    - "TableTennis"
+    - "Tennis"
+    - "TrailRun"
     - "Velomobile"
     - "VirtualRide"
+    - "VirtualRow"
     - "VirtualRun"
     - "Walk"
     - "WeightTraining"
@@ -3445,6 +3442,9 @@ definitions:
       trainer:
         type: "boolean"
         description: "Whether this activity was recorded on a training machine"
+      hide_from_home:
+        type: "boolean"
+        description: "Whether this activity is muted"
       description:
         type: "string"
         description: "The description of the activity"
@@ -3452,7 +3452,11 @@ definitions:
         type: "string"
         description: "The name of the activity"
       type:
+        description: "Deprecated. Prefer to use sport_type. In a request where both\
+          \ type and sport_type are present, this field will be ignored"
         $ref: "#/definitions/ActivityType"
+      sport_type:
+        $ref: "#/definitions/SportType"
       gear_id:
         type: "string"
         description: "Identifier for the gear associated with the activity. ‘none’\
@@ -3541,6 +3545,58 @@ definitions:
           type: "integer"
           description: "The number of athletes in the club that the logged-in athlete\
             \ follows."
+  ClubAthlete:
+    type: "object"
+    properties:
+      resource_state:
+        type: "integer"
+        description: "Resource state, indicates level of detail. Possible values:\
+          \ 1 -> \"meta\", 2 -> \"summary\", 3 -> \"detail\""
+      firstname:
+        type: "string"
+        description: "The athlete's first name."
+      lastname:
+        type: "string"
+        description: "The athlete's last initial."
+      member:
+        type: "string"
+        description: "The athlete's member status."
+      admin:
+        type: "boolean"
+        description: "Whether the athlete is a club admin."
+      owner:
+        type: "boolean"
+        description: "Whether the athlete is club owner."
+  ClubActivity:
+    type: "object"
+    properties:
+      athlete:
+        $ref: "#/definitions/MetaAthlete"
+      name:
+        type: "string"
+        description: "The name of the activity"
+      distance:
+        type: "number"
+        format: "float"
+        description: "The activity's distance, in meters"
+      moving_time:
+        type: "integer"
+        description: "The activity's moving time, in seconds"
+      elapsed_time:
+        type: "integer"
+        description: "The activity's elapsed time, in seconds"
+      total_elevation_gain:
+        type: "number"
+        format: "float"
+        description: "The activity's total elevation gain."
+      type:
+        description: "Deprecated. Prefer to use sport_type"
+        $ref: "#/definitions/ActivityType"
+      sport_type:
+        $ref: "#/definitions/SportType"
+      workout_type:
+        type: "integer"
+        description: "The activity's workout type"
   DetailedGear:
     allOf:
     - $ref: "#/definitions/SummaryGear"
@@ -3637,18 +3693,18 @@ definitions:
         city: "city"
         elevation_high: 7.386282
         athlete_pr_effort:
-          distance: 1.1730742
+          pr_elapsed_time: 6
+          pr_date: "2000-01-23T04:56:07.000+00:00"
+          effort_count: 7
+          pr_activity_id: 1
+        athlete_segment_stats:
+          distance: 9.965781
           start_date_local: "2000-01-23T04:56:07.000+00:00"
-          activity_id: 6
-          elapsed_time: 7
+          activity_id: 4
+          elapsed_time: 5
           is_kom: true
           id: 1
           start_date: "2000-01-23T04:56:07.000+00:00"
-        athlete_segment_stats:
-          pr_elapsed_time: 5
-          pr_date: "2000-01-23T04:56:07.000+00:00"
-          effort_count: 9
-          pr_activity_id: 4
         start_latlng: ""
         elevation_low: 1.2315135
         end_latlng: ""
@@ -3665,18 +3721,18 @@ definitions:
         city: "city"
         elevation_high: 7.386282
         athlete_pr_effort:
-          distance: 1.1730742
+          pr_elapsed_time: 6
+          pr_date: "2000-01-23T04:56:07.000+00:00"
+          effort_count: 7
+          pr_activity_id: 1
+        athlete_segment_stats:
+          distance: 9.965781
           start_date_local: "2000-01-23T04:56:07.000+00:00"
-          activity_id: 6
-          elapsed_time: 7
+          activity_id: 4
+          elapsed_time: 5
           is_kom: true
           id: 1
           start_date: "2000-01-23T04:56:07.000+00:00"
-        athlete_segment_stats:
-          pr_elapsed_time: 5
-          pr_date: "2000-01-23T04:56:07.000+00:00"
-          effort_count: 9
-          pr_activity_id: 4
         start_latlng: ""
         elevation_low: 1.2315135
         end_latlng: ""
